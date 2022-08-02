@@ -1,5 +1,6 @@
 const itemContainer = document.querySelector(".item-container");
 const searchSection = document.querySelector("#item-searching");
+const cartSection = document.querySelector(".cart-section");
 
 fetch("/data/store.json")
   .then((res) => res.json())
@@ -17,6 +18,27 @@ fetch("/data/store.json")
         </div>
         `;
       itemContainer.insertAdjacentHTML("beforeend", cartItem);
+    }
+    // drag drop event
+    for (i = 0; i < itemContainer.children.length; i++) {
+      itemContainer.children[i].addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("data", this.innerHTML);
+      });
+      cartSection.addEventListener("dragover", function (e) {
+        e.preventDefault();
+      });
+      cartSection.addEventListener("drop", function (e) {
+        e.preventDefault();
+
+        cartItem = `
+      <div class='card' style='width: 18rem' draggable='true'>
+        ${e.dataTransfer.getData("data")}
+      </div>
+      `;
+        // array 하나 만들어서 담는 방법으로 해야할 듯 ㅜ
+        // 버튼 눌렀을 때 추가되는 기능도 추가해야 함
+        cartSection.insertAdjacentHTML("beforeend", cartItem);
+      });
     }
   })
   .catch(function (error) {

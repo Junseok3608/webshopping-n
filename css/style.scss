@@ -15,7 +15,6 @@ body {
   .cart-section {
     background-color: black;
     color: white;
-    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +30,7 @@ body {
 .card {
   padding: 5px;
   margin: 15px;
+  cursor: move;
   img {
     width: 80%;
     display: block;
